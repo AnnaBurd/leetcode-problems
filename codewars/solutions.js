@@ -1,3 +1,36 @@
+/**
+ * This is a file for solutions for a set of Codewars problems:
+        Opposite number | Codewars
+        Basic Mathematical Operations | Codewars
+        Printing Array elements with Comma delimiters
+        Can Santa save Christmas? | Codewars
+        Get the Middle Character | Codewars
+        Singleton Pattern | Codewars
+        Remove First and Last Character Part Two | Codewars
+        Prefill an Array | Codewars
+        Cross Product of Vectors | Codewars
+        Matrix Transpose | Codewars
+        Create Phone Number | Codewars
+        Closures and Scopes | Codewars
+        Calculating with Functions | Codewars
+        Can you keep a secret? | Codewars
+        Using closures to share class state | Codewars
+        A Chain adding function | Codewars
+        Function Cache | Codewars
+        Counting Duplicates | Codewars
+        Function composition | Codewars
+        "Stringing"+"Me"+"Along" | Codewars
+        I Spy | Codewars
+        SantaClausable Interface | Codewars
+        Extract Nested Object Reference | Codewars
+        Array Helpers | Codewars
+        Your order, please | Codewars
+        Sum of Digits / Digital Root | Codewars
+        Fun with ES6 Classes #2 - Animals and Inheritance | Codewars
+        Fun with ES6 Classes #3 - Cuboids, Cubes and Getters | Codewars
+
+ */
+
 // Very simple, given a number (integer / decimal / both depending on the language), find its opposite (additive inverse).
 
 /** Return the opposite value of a number, e.g. 1 => -1, -34 => 34 */
@@ -205,11 +238,10 @@ var Cat = (function () {
   return Constructor;
 })();
 
-// TODO: check solutions for cat above
-fluffy = new Cat("fluffy", 15);
-garfield = new Cat("garfield", 25);
+// fluffy = new Cat("fluffy", 15);
+// garfield = new Cat("garfield", 25);
 
-console.log(fluffy, fluffy.weight);
+// console.log(fluffy, fluffy.weight);
 
 /** Function wrapper to store results in cache */
 const cache = (func) => {

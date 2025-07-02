@@ -61,4 +61,4 @@ Each solution is written, tested, and runnable directly in the browser via `inde
 Solving problems === Fun! 🎉
 
 While I don't always have time for them, I find it's an excellent brain exercise and a rewarding practice.
-For more, check out [my LeetCode profile](https://leetcode.com/AnnaBurd/).
+For more, check out my [LeetCode profile](https://leetcode.com/AnnaBurd/).

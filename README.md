@@ -3,11 +3,11 @@
 Explore my collection of JavaScript solutions to various LeetCode problems.
 Each solution is written, tested, and runnable directly in the browser via `index.html`.
 
-<div style="width: 40%; margin-bottom: 40px;">
-  <a href="https://annaburd.github.io/leetcode-problems" >
-    <img src="link.svg" style="width: 100%;" alt="Click to see the preview">
-  </a>
-</div>
+
+<a href="https://annaburd.github.io/leetcode-problems" style="display: inline-block; width: 250px; height: auto;">
+    <img src="link.svg" style="display: inline-block; width: 250px; height: auto;" alt="Click to see the preview">
+</a>
+
 
 ✨ Challenges Conquered
 

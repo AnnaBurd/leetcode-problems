@@ -1,0 +1,17 @@
+{
+	"name": "leetcode-problems",
+	"version": "1.0.0",
+	"description": "Explore my collection of JavaScript solutions to various LeetCode problems.",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"jest": "^29.7.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.0.6"
+	}
+}

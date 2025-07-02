@@ -42,18 +42,18 @@ const opposite = (number) => -number;
  * @param {number} value2 - The second number
  */
 const basicOp = (operation, value1, value2) => {
-  switch (operation) {
-    case "+":
-      return value1 + value2;
-    case "-":
-      return value1 - value2;
-    case "*":
-      return value1 * value2;
-    case "/":
-      return value1 / value2;
-    default:
-      return "Invalid operation";
-  }
+	switch (operation) {
+		case "+":
+			return value1 + value2;
+		case "-":
+			return value1 - value2;
+		case "*":
+			return value1 * value2;
+		case "/":
+			return value1 / value2;
+		default:
+			return "Invalid operation";
+	}
 };
 
 /** Transform array of elements into string of comma-separated values */
@@ -61,48 +61,48 @@ const printArray = (array) => array.join(",");
 
 /** Return the total time in seconds for array of HH:MM:SS strings */
 const calcTotalDuration = (durations) => {
-  let totalDuration = 0;
-  durations.forEach((duration) => {
-    const [hours, minutes, seconds] = duration.split(":").map(Number);
-    totalDuration += hours * 3600 + minutes * 60 + seconds;
-  });
+	let totalDuration = 0;
+	durations.forEach((duration) => {
+		const [hours, minutes, seconds] = duration.split(":").map(Number);
+		totalDuration += hours * 3600 + minutes * 60 + seconds;
+	});
 
-  return totalDuration;
+	return totalDuration;
 };
 
 /** Return true if total time for array of HH:MM:SS strings is less or equal to 24 hours */
 const determineTime = (durations) => {
-  const maxDuration = 24 * 60 * 60;
-  const requiredDuration = calcTotalDuration(durations);
+	const maxDuration = 24 * 60 * 60;
+	const requiredDuration = calcTotalDuration(durations);
 
-  return requiredDuration <= maxDuration;
+	return requiredDuration <= maxDuration;
 };
 
 /** Return the middle character(s) of a string, one middle character if the string's length is odd, and two middle characters if the string's length is even */
 const getMiddle = (string) => {
-  const middle = Math.floor(string.length / 2);
-  return string.length % 2 === 0
-    ? string.slice(middle - 1, middle + 1)
-    : string[middle];
+	const middle = Math.floor(string.length / 2);
+	return string.length % 2 === 0
+		? string.slice(middle - 1, middle + 1)
+		: string[middle];
 };
 
 /** The basic example of Singleton pattern in JS using class  */
 class Singleton {
-  constructor() {
-    if (Singleton._instance) {
-      return Singleton._instance;
-    }
-    Singleton._instance = this;
-  }
+	constructor() {
+		if (Singleton._instance) {
+			return Singleton._instance;
+		}
+		Singleton._instance = this;
+	}
 }
 
 /** Transform string containing comma-separated values into a string of space-separated values and exclude first and last value  */
 const array = (string) => {
-  const words = string.split(",");
+	const words = string.split(",");
 
-  if (words.length <= 2) return null;
+	if (words.length <= 2) return null;
 
-  return words.slice(1, -1).join(" ");
+	return words.slice(1, -1).join(" ");
 };
 
 /** Use regex to check if string contains a positive integer */
@@ -110,73 +110,71 @@ const isPositiveIntegerString = (n) => /^\d+$/.test(n);
 
 /** Prefill an array of n items with values v */
 const prefill = (n, v) => {
-  if (
-    (typeof n !== "number" && typeof n !== "string") ||
-    !isPositiveIntegerString(n.toString())
-  ) {
-    throw new TypeError(`${n} is invalid`);
-  }
+	if (
+		(typeof n !== "number" && typeof n !== "string") ||
+		!isPositiveIntegerString(n.toString())
+	) {
+		throw new TypeError(`${n} is invalid`);
+	}
 
-  return Array(+n).fill(v);
+	return Array(+n).fill(v);
 };
 
 /** Calculate the cross product of two vectors in 3D space */
 const crossProduct = (vector1, vector2) => {
-  if (
-    !Array.isArray(vector1) ||
-    !Array.isArray(vector2) ||
-    vector1.length !== 3 ||
-    vector2.length !== 3
-  ) {
-    // throw new Error("Arguments are not 3D vectors!"); does not pass test
-    throw "Arguments are not 3D vectors!";
-  }
+	if (
+		!Array.isArray(vector1) ||
+		!Array.isArray(vector2) ||
+		vector1.length !== 3 ||
+		vector2.length !== 3
+	) {
+		// throw new Error("Arguments are not 3D vectors!"); does not pass test
+		throw "Arguments are not 3D vectors!";
+	}
 
-  const [x1, y1, z1] = vector1;
-  const [x2, y2, z2] = vector2;
+	const [x1, y1, z1] = vector1;
+	const [x2, y2, z2] = vector2;
 
-  // Ref: formula for cross product of two vectors in the three-dimensional Cartesian coordinate system (https://www.nagwa.com/en/explainers/616184792816/)
-  return [y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2];
+	// Ref: formula for cross product of two vectors in the three-dimensional Cartesian coordinate system (https://www.nagwa.com/en/explainers/616184792816/)
+	return [y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2];
 };
 
 /** Return the transpose of a matrix, assuming each row has equal length and both height and width are positive */
 const transpose = (matrix) => {
-  const height = matrix.length;
-  const width = matrix[0].length;
+	const height = matrix.length;
+	const width = matrix[0].length;
 
-  const transposedMatrix = [];
+	const transposedMatrix = [];
 
-  for (let i = 0; i < width; i++) {
-    const row = [];
-    for (let j = 0; j < height; j++) {
-      row.push(matrix[j][i]);
-    }
-    transposedMatrix.push(row);
-  }
+	for (let i = 0; i < width; i++) {
+		const row = [];
+		for (let j = 0; j < height; j++) {
+			row.push(matrix[j][i]);
+		}
+		transposedMatrix.push(row);
+	}
 
-  return transposedMatrix;
+	return transposedMatrix;
 };
 
 /** Convert an array of 10 integers into a string formatted as phone number */
 createPhoneNumber = (numbers) => {
-  const format = "(xxx) xxx-xxxx";
-  let i = 0;
-  return format.replace(/x/g, () => numbers[i++]);
+	const format = "(xxx) xxx-xxxx";
+	let i = 0;
+	return format.replace(/x/g, () => numbers[i++]);
 };
 
 /** Generate an array of functions, each of which returns its index in the array */
 // const createFunctions = (n) => Array.from({ length: n }, (_, i) => () => i);
 
 function createFunctions(n) {
-  const callbacks = [];
+	const callbacks = [];
 
-  for (let i = 0; i < n; i++) {
-    callbacks.push(function () {
-      return i;
-    });
-  }
+	for (let i = 0; i < n; i++) {
+		callbacks.push(() => i);
+	}
 
-  return callbacks;
+	return callbacks;
 }
 
 const cb = createFunctions(5);
@@ -200,42 +198,40 @@ const dividedBy = (a) => (b) => Math.floor(b / a);
 
 /** Create an object with getter and setter for a "secret" value */
 const createSecretHolder = (secret) => {
-  return {
-    getSecret: () => secret,
-    setSecret: (value) => (secret = value),
-  };
+	return {
+		getSecret: () => secret,
+		setSecret: (value) => (secret = value),
+	};
 };
 
-var Cat = (function () {
-  var _count = 0;
-  var _totalWeight = 0;
+var Cat = (() => {
+	var _count = 0;
+	var _totalWeight = 0;
 
-  const Constructor = function (name, weight) {
-    if (!name || !weight) throw new Error("Both name and weight are required");
+	const Constructor = function (name, weight) {
+		if (!name || !weight) throw new Error("Both name and weight are required");
 
-    _count++;
+		_count++;
 
-    this.name = name;
+		this.name = name;
 
-    Object.defineProperty(this, "weight", {
-      get: function () {
-        return this._weight || 0;
-      },
-      set: function (value) {
-        _totalWeight -= this.weight;
-        _totalWeight += value;
-        this._weight = value;
-      },
-    });
+		Object.defineProperty(this, "weight", {
+			get: function () {
+				return this._weight || 0;
+			},
+			set: function (value) {
+				_totalWeight -= this.weight;
+				_totalWeight += value;
+				this._weight = value;
+			},
+		});
 
-    this.weight = weight;
-  };
+		this.weight = weight;
+	};
 
-  Constructor.averageWeight = function () {
-    return _totalWeight / _count;
-  };
+	Constructor.averageWeight = () => _totalWeight / _count;
 
-  return Constructor;
+	return Constructor;
 })();
 
 // fluffy = new Cat("fluffy", 15);
@@ -245,151 +241,151 @@ var Cat = (function () {
 
 /** Function wrapper to store results in cache */
 const cache = (func) => {
-  const cachedValues = new Map();
+	const cachedValues = new Map();
 
-  return function (...args) {
-    const key = JSON.stringify(args);
+	return (...args) => {
+		const key = JSON.stringify(args);
 
-    // Return cached value if it exists
-    if (cachedValues.has(key)) return cachedValues.get(key);
+		// Return cached value if it exists
+		if (cachedValues.has(key)) return cachedValues.get(key);
 
-    // Generate new value and cache it
-    const newValue = func(...args);
-    cachedValues.set(key, newValue);
-    return newValue;
-  };
+		// Generate new value and cache it
+		const newValue = func(...args);
+		cachedValues.set(key, newValue);
+		return newValue;
+	};
 };
 
 /** Count the number of duplicating characters in the input string */
 const duplicateCount = (str) => {
-  const lowerCaseStr = str.toLowerCase();
+	const lowerCaseStr = str.toLowerCase();
 
-  const charCount = {};
-  for (let char of lowerCaseStr) {
-    charCount.hasOwnProperty(char) ? charCount[char]++ : (charCount[char] = 1);
-  }
+	const charCount = {};
+	for (const char of lowerCaseStr) {
+		Object.hasOwn(charCount, char) ? charCount[char]++ : (charCount[char] = 1);
+	}
 
-  const duplicatesCount = Object.values(charCount).filter(
-    (count) => count > 1
-  ).length;
+	const duplicatesCount = Object.values(charCount).filter(
+		(count) => count > 1,
+	).length;
 
-  return duplicatesCount;
+	return duplicatesCount;
 };
 
 /** Compose function that can take any number of functions */
 const compose = (...fns) => {
-  return (arg) => fns.reduceRight((acc, fn) => fn(acc), arg);
+	return (arg) => fns.reduceRight((acc, fn) => fn(acc), arg);
 };
 // TODO: check solutions (how it works) for compose above
 
 /** Generate a space-separated message with the repeated function calls. Function call without an argument returns the resulting message */
 const createMessage = (str) => {
-  return function (nextStr) {
-    if (!nextStr) return str;
-    return createMessage(`${str} ${nextStr}`);
-  };
+	return (nextStr) => {
+		if (!nextStr) return str;
+		return createMessage(`${str} ${nextStr}`);
+	};
 };
 
 // TODO: check how solution works for createMessage above
 // https://www.codewars.com/kata/55f4a44eb72a0fa91600001e/solutions/javascript
 
 var santa = {
-  sayHoHoHo: function () {
-    console.log("Ho Ho Ho!");
-  },
-  distributeGifts: function () {
-    console.log("Gifts for all!");
-  },
-  goDownTheChimney: function () {
-    console.log("*whoosh*");
-  },
+	sayHoHoHo: () => {
+		console.log("Ho Ho Ho!");
+	},
+	distributeGifts: () => {
+		console.log("Gifts for all!");
+	},
+	goDownTheChimney: () => {
+		console.log("*whoosh*");
+	},
 };
 
 var notSanta = {
-  sayHoHoHo: function () {
-    console.log("Oink Oink!");
-  },
-  // no distributeGifts() and no goDownTheChimney()
+	sayHoHoHo: () => {
+		console.log("Oink Oink!");
+	},
+	// no distributeGifts() and no goDownTheChimney()
 };
 
 /** Check if an object has all the required methods for Santa */
 const isSantaClausable = (obj) => {
-  return (
-    typeof obj.sayHoHoHo === "function" &&
-    typeof obj.distributeGifts === "function" &&
-    typeof obj.goDownTheChimney === "function"
-  );
+	return (
+		typeof obj.sayHoHoHo === "function" &&
+		typeof obj.distributeGifts === "function" &&
+		typeof obj.goDownTheChimney === "function"
+	);
 };
 
 Array.prototype.square = function () {
-  return this.map((n) => n * n);
+	return this.map((n) => n * n);
 };
 
 Array.prototype.cube = function () {
-  return this.map((n) => Math.pow(n, 3));
+	return this.map((n) => n ** 3);
 };
 
 Array.prototype.sum = function () {
-  return this.reduce((acc, n) => acc + n, 0);
+	return this.reduce((acc, n) => acc + n, 0);
 };
 
 Array.prototype.average = function () {
-  if (this.length === 0) return NaN;
-  return this.sum() / this.length;
+	if (this.length === 0) return NaN;
+	return this.sum() / this.length;
 };
 
 Array.prototype.even = function () {
-  return this.filter((n) => n % 2 === 0);
+	return this.filter((n) => n % 2 === 0);
 };
 
 Array.prototype.odd = function () {
-  return this.filter((n) => n % 2 !== 0);
+	return this.filter((n) => n % 2 !== 0);
 };
 
 /** Order words in string by a hidden order number within each word */
 const order = (str) => {
-  return str
-    .split(" ")
-    .sort((a, b) => a.match(/\d/) - b.match(/\d/))
-    .join(" ");
+	return str
+		.split(" ")
+		.sort((a, b) => a.match(/\d/) - b.match(/\d/))
+		.join(" ");
 };
 
 /** Calculate the digital root (recursive sum of all the digits in a number), recursive implementation  */
 const digitalRoot = (n) => {
-  if (n < 10) return n;
+	if (n < 10) return n;
 
-  const digitsSum = n
-    .toString()
-    .split("")
-    .map(Number)
-    .reduce((sum, digit) => sum + digit, 0);
+	const digitsSum = n
+		.toString()
+		.split("")
+		.map(Number)
+		.reduce((sum, digit) => sum + digit, 0);
 
-  return digitalRoot(digitsSum);
+	return digitalRoot(digitsSum);
 };
 
 /** Calculate the digital root (recursive sum of all the digits in a number), iterative implementation  */
 const digitalRootIt = (n) => {
-  while (n >= 10) {
-    n = n
-      .toString()
-      .split("")
-      .map(Number)
-      .reduce((sum, digit) => sum + digit, 0);
-  }
-  return n;
+	while (n >= 10) {
+		n = n
+			.toString()
+			.split("")
+			.map(Number)
+			.reduce((sum, digit) => sum + digit, 0);
+	}
+	return n;
 };
 
 class Animal {
-  constructor(name, age, legs, species, status) {
-    this.name = name;
-    this.age = age;
-    this.legs = legs;
-    this.species = species;
-    this.status = status;
-  }
-  introduce() {
-    return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
-  }
+	constructor(name, age, legs, species, status) {
+		this.name = name;
+		this.age = age;
+		this.legs = legs;
+		this.species = species;
+		this.status = status;
+	}
+	introduce() {
+		return `Hello, my name is ${this.name} and I am ${this.age} years old.`;
+	}
 }
 
 // class Shark extends Animal {
@@ -444,16 +440,16 @@ class Animal {
 
 /** Add method to object prototype to allow nested indexing syntax, e.g. 'person.history.bio'  */
 Object.prototype.hash = function (string) {
-  const keys = string.split(".");
-  let result = this;
+	const keys = string.split(".");
+	let result = this;
 
-  for (let key of keys) {
-    if (result.hasOwnProperty(key)) {
-      result = result[key];
-    } else {
-      return undefined;
-    }
-  }
+	for (const key of keys) {
+		if (Object.hasOwn(result, key)) {
+			result = result[key];
+		} else {
+			return undefined;
+		}
+	}
 
-  return result;
+	return result;
 };

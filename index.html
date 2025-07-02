@@ -1,12 +1,672 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Problem Solution</title>
-  </head>
-  <h4>Open dev console to see script output</h4>
-  <script src="app.js"></script>
-  <body></body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeetCode Runner 🏃‍♂️‍➡️</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+  <script src="problems.js"></script>
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --secondary-color: #6c757d;
+      --success-color: #28a745;
+      --danger-color: #dc3545;
+      --warning-color: #ffc107;
+      --background-color: #f8f9fa;
+      --surface-color: #ffffff;
+      --text-color: #212529;
+      --text-muted: #6c757d;
+      --border-color: #dee2e6;
+      --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      --shadow-hover: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      --border-radius: 0.375rem;
+      --transition: all 0.15s ease-in-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+
+      min-height: 100vh;
+      height: 100dvh;
+
+
+      @media screen and (max-width: 768px) {
+        height: fit-content;
+      }
+    }
+
+    .app {
+      height: 100%;
+      padding: 1rem;
+
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 1.5rem;
+      overflow: hidden;
+    }
+
+    .header {
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      grid-template-rows: 1fr;
+      gap: 1.5rem;
+      max-width: 1400px;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      background: var(--surface-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      padding: 1rem;
+      font-weight: 600;
+    }
+
+    .problems-list {
+      max-height: 70vh;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .problem-item {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .problem-item:hover {
+      background-color: var(--background-color);
+      transform: translateX(4px);
+    }
+
+    .problem-item.selected {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 500;
+    }
+
+    .problem-item:last-child {
+      border-bottom: none;
+    }
+
+    .content {
+      background: var(--surface-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .problem-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .problem-description {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .problem-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .problem-link:hover {
+      text-decoration: underline;
+    }
+
+    .content-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .code-container {
+      position: relative;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .code-block {
+      background: #0d1117 !important;
+      margin: 0;
+      padding: 1rem;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      min-height: 200px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      background: var(--secondary-color);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .status-ready {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .status-running {
+      background: #fff3e0;
+      color: #f57c00;
+    }
+
+    .status-success {
+      background: #e8f5e8;
+      color: var(--success-color);
+    }
+
+    .status-error {
+      background: #ffebee;
+      color: var(--danger-color);
+    }
+
+    .output-container {
+      background: #f8f9fa;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+      min-height: 200px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      padding: 1rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .sidebar {
+        order: 2;
+      }
+
+      .content {
+        order: 1;
+      }
+
+      .problems-list {
+        max-height: 300px;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>LeetCode Runner 🏃‍♂️‍➡️</h1>
+    </header>
+
+    <div class="main-container">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          Problems
+        </div>
+        <div class="problems-list" id="problemsList">
+          <!-- Problems will be loaded here -->
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content-header">
+          <h2 class="problem-title" id="problemTitle">Select a problem</h2>
+          <p class="problem-description" id="problemDescription">Choose a problem from the sidebar to get started</p>
+          <a class="problem-link" id="problemLink" href="#" target="_blank" style="display: none;">View on LeetCode</a>
+        </div>
+
+        <div class="content-body">
+          <div class="section">
+            <h3 class="section-title">
+              💻 Solution
+            </h3>
+            <div class="code-container">
+              <pre
+                class="code-block"><code id="solutionCode" class="language-javascript">// Select a problem to view its solution</code></pre>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">
+              ⚡ Execution
+            </h3>
+            <div class="controls">
+              <button class="btn btn-primary" id="runButton" disabled>
+                <span>▶️</span>
+                Run Solution
+              </button>
+              <div class="status status-ready" id="runStatus">Ready</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3 class="section-title">
+              📋 Output
+            </h3>
+            <div class="output-container" id="consoleOutput">Click "Run Solution" to see output...</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Application State Management
+    class LeetCodeRunner {
+      constructor() {
+        this.elements = this.initializeElements();
+        this.currentProblem = null;
+        this.currentCode = '';
+        this.problems = [];
+        this.isRunning = false;
+
+        this.initializeConsoleOverride();
+        this.initializeEventListeners();
+        this.loadProblems();
+      }
+
+      initializeElements() {
+        return {
+          problemsList: document.getElementById('problemsList'),
+          problemTitle: document.getElementById('problemTitle'),
+          problemDescription: document.getElementById('problemDescription'),
+          problemLink: document.getElementById('problemLink'),
+          solutionCode: document.getElementById('solutionCode'),
+          consoleOutput: document.getElementById('consoleOutput'),
+          runButton: document.getElementById('runButton'),
+          runStatus: document.getElementById('runStatus')
+        };
+      }
+
+      initializeConsoleOverride() {
+        this.originalConsole = {
+          log: console.log,
+          error: console.error,
+          warn: console.warn,
+          info: console.info
+        };
+
+        // Override console methods
+        console.log = (...args) => {
+          this.originalConsole.log(...args);
+          this.logToOutput('📝', ...args);
+        };
+
+        console.error = (...args) => {
+          this.originalConsole.error(...args);
+          this.logToOutput('❌', ...args);
+        };
+
+        console.warn = (...args) => {
+          this.originalConsole.warn(...args);
+          this.logToOutput('⚠️', ...args);
+        };
+
+        console.info = (...args) => {
+          this.originalConsole.info(...args);
+          this.logToOutput('ℹ️', ...args);
+        };
+      }
+
+      initializeEventListeners() {
+        this.elements.runButton.addEventListener('click', () => this.runCode());
+
+        // Handle URL changes
+        window.addEventListener('popstate', () => this.handleUrlChange());
+      }
+
+      async loadProblems() {
+        try {
+          // Check if problems array exists (from problems.js)
+          if (typeof problems !== 'undefined' && Array.isArray(problems)) {
+            this.problems = problems;
+            this.renderProblemsList();
+            this.handleInitialLoad();
+          } else {
+            this.showError('Problems data not found. Make sure problems.js is loaded.');
+          }
+        } catch (error) {
+          this.showError('Failed to load problems: ' + error.message);
+        }
+      }
+
+      renderProblemsList() {
+        const fragment = document.createDocumentFragment();
+
+        this.problems.forEach(problem => {
+          const item = document.createElement('div');
+          item.className = 'problem-item';
+          item.textContent = `${problem.id}. ${problem.title}`;
+          item.dataset.id = problem.id;
+          item.addEventListener('click', () => this.selectProblem(problem));
+          fragment.appendChild(item);
+        });
+
+        this.elements.problemsList.appendChild(fragment);
+      }
+
+      async selectProblem(problem) {
+        if (!problem || this.isRunning) return;
+
+        this.currentProblem = problem;
+        this.updateProblemDisplay(problem);
+        this.updateSelectedState(problem.id);
+        this.updateUrl(problem.id);
+
+        try {
+          await this.loadSolution(problem);
+        } catch (error) {
+          this.showError('Failed to load solution: ' + error.message);
+        }
+      }
+
+      updateProblemDisplay(problem) {
+        this.elements.problemTitle.textContent = problem.title;
+        this.elements.problemDescription.textContent = problem.description;
+        this.elements.problemLink.href = problem.link;
+        this.elements.problemLink.textContent = problem?.link?.includes('leetcode') ? 'View on LeetCode' : problem?.link?.includes('codewars') ? 'View on CodeWars' : problem?.link?.includes('hackerrank') ? 'View on HackerRank' : '';
+        this.elements.problemLink.style.display = 'inline';
+      }
+
+      updateSelectedState(problemId) {
+        document.querySelectorAll('.problem-item').forEach(item => {
+          item.classList.toggle('selected', item.dataset.id === String(problemId));
+        });
+      }
+
+      updateUrl(problemId) {
+        const url = new URL(window.location);
+        url.searchParams.set('problemId', problemId);
+        window.history.replaceState({}, '', url);
+      }
+
+      async loadSolution(problem) {
+        this.elements.solutionCode.textContent = '// Loading solution...';
+        this.updateRunStatus('Loading...', 'running');
+
+        try {
+          const response = await fetch(problem.file);
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const code = await response.text();
+          this.currentCode = code;
+          this.elements.solutionCode.textContent = code;
+
+          // Re-highlight the code
+          delete this.elements.solutionCode.dataset.highlighted;
+          hljs.highlightElement(this.elements.solutionCode);
+
+          this.elements.runButton.disabled = false;
+          this.clearOutput();
+          this.updateRunStatus('Ready', 'ready');
+
+        } catch (error) {
+          this.elements.solutionCode.textContent = '// Failed to load solution file\n// Error: ' + error.message;
+          this.currentCode = '';
+          this.elements.runButton.disabled = true;
+          this.updateRunStatus('Load failed', 'error');
+          throw error;
+        }
+      }
+
+      async runCode() {
+        if (!this.currentCode || this.isRunning) return;
+
+        this.isRunning = true;
+        this.elements.runButton.disabled = true;
+        this.clearOutput();
+
+        const startTime = new Date();
+        const timeString = startTime.toLocaleTimeString();
+
+        this.updateRunStatus('Running...', 'running');
+        this.logToOutput(`🚀 [${timeString}] Starting execution...`);
+
+        try {
+          // Use setTimeout to make execution async and allow UI updates
+          await new Promise(resolve => setTimeout(resolve, 10));
+
+          // Execute the code
+          new Function(this.currentCode)();
+
+          const endTime = new Date();
+          const duration = endTime - startTime;
+          const endTimeString = endTime.toLocaleTimeString();
+
+          this.logToOutput(`✅ [${endTimeString}] Execution completed (${duration}ms)`);
+          this.updateRunStatus('Success', 'success');
+
+        } catch (error) {
+          const errorTime = new Date().toLocaleTimeString();
+          this.logToOutput(`💥 [${errorTime}] Runtime error:`);
+          this.logToOutput(`❌ ${error.message}`);
+          if (error.stack) {
+            this.logToOutput(`📍 Stack trace: ${error.stack}`);
+          }
+          this.updateRunStatus('Error', 'error');
+        } finally {
+          this.isRunning = false;
+          this.elements.runButton.disabled = false;
+        }
+      }
+
+      updateRunStatus(message, type = 'ready') {
+        this.elements.runStatus.textContent = message;
+        this.elements.runStatus.className = `status status-${type}`;
+      }
+
+      clearOutput() {
+        this.elements.consoleOutput.textContent = '';
+      }
+
+      logToOutput(...args) {
+        const message = args.map(arg =>
+          typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+        ).join(' ');
+
+        this.elements.consoleOutput.textContent += message + '\n';
+        this.elements.consoleOutput.scrollTop = this.elements.consoleOutput.scrollHeight;
+      }
+
+      showError(message) {
+        this.originalConsole.error(message);
+        this.logToOutput('🚨 System Error:', message);
+        this.updateRunStatus('System Error', 'error');
+      }
+
+      handleInitialLoad() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const problemId = urlParams.get('problemId');
+
+        let selectedProblem = null;
+        if (problemId) {
+          selectedProblem = this.problems.find(p => String(p.id) === problemId);
+        }
+
+        if (!selectedProblem && this.problems.length > 0) {
+          selectedProblem = this.problems[0];
+        }
+
+        if (selectedProblem) {
+          this.selectProblem(selectedProblem);
+        }
+      }
+
+      handleUrlChange() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const problemId = urlParams.get('problemId');
+
+        if (problemId) {
+          const problem = this.problems.find(p => String(p.id) === problemId);
+          if (problem && problem !== this.currentProblem) {
+            this.selectProblem(problem);
+          }
+        }
+      }
+    }
+
+    // Initialize the application when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize highlight.js
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      } else {
+        console.warn('Highlight.js not loaded');
+      }
+
+      // Initialize the main application
+      window.leetCodeRunner = new LeetCodeRunner();
+    });
+
+    // Fallback for older browsers or if DOMContentLoaded already fired
+    if (document.readyState === 'loading') {
+      // Document still loading, wait for DOMContentLoaded
+    } else {
+      // Document already loaded
+      setTimeout(() => {
+        if (!window.leetCodeRunner) {
+          if (typeof hljs !== 'undefined') {
+            hljs.highlightAll();
+          }
+          window.leetCodeRunner = new LeetCodeRunner();
+        }
+      }, 100);
+    }
+  </script>
+</body>
+
 </html>
